@@ -1,9 +1,9 @@
 # enconding: UTF-8
-Before('@clear-sites') do
+Before('@logout') do
 
 end
 
-After('@clear-sites') do
+After('@logout') do
   @login_page = LoginPage.new
 end
 
@@ -11,7 +11,7 @@ end
   @login_page = LoginPage.new
 end
 
-假如(/^我使用有效账号登录$/) do
+假如(/^我使用有效(?:的)?账号登录$/) do
   @login_page ||= LoginPage.new
   @login_page.login User.get_default_account
 end
@@ -24,6 +24,6 @@ end
   @login_page.login User.get("无效账号")
 end
 
-那么(/^我的登录会失败$/) do
+那么(/^我(?:的登录会失败|会看到登录失败的消息)$/) do
   @login_page.assert_invalid_password
 end
